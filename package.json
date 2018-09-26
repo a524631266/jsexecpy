@@ -1,0 +1,24 @@
+{
+  "name": "jsexecpy",
+  "version": "1.0.0",
+  "description": "this package is using for excuting python similer text in nodejs and return the result",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a524631266/jsexecpy.git"
+  },
+  "keywords": [
+    "nodejs",
+    "python",
+    "shell"
+  ],
+  "author": "a524631266",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/a524631266/jsexecpy/issues"
+  },
+  "homepage": "https://github.com/a524631266/jsexecpy#readme"
+}
