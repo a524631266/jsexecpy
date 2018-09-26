@@ -4,3 +4,13 @@
 2. 可以.py文件
 
 ## 主入口文件 index.js
+
+## 使用方法 安装本地包
+```
+    $ npm install --save jsexecpy 
+```
+## 测试包
+```nodejs
+> let pyexec = require("jsexecpy");
+> pyexec.runpytext("import os;print('you are my love');a = 2;a+=1;print(a)")
+```
