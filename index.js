@@ -14,7 +14,7 @@ let _execpython = function(pythonpath,callback){
             })
             spawnObj.stderr.on("data",function(chunk){
                 console.log('err : ' + chunk.toString());
-                reject({data:`执行${pythonpath} 错误:${err}`,pythonpath})
+                reject({data:`执行${pythonpath} 错误:${chunk}`,pythonpath})
                 // callback && callback({data:chunk.toString(),pythonpath})
             })
             spawnObj.on('close', function(code) {
