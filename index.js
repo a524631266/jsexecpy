@@ -7,7 +7,7 @@ let fs = require("fs")
 let _execpython = function(pythonpath,callback){
     return new Promise((resolve,reject)=>{
         try {
-            let spawnObj = spawn("python",[pythonpath],{encoding:"utf-8",stdio: 'inherit' });
+            let spawnObj = spawn("python",[pythonpath],{encoding:"utf-8"});
             spawnObj.stdout.on("data",function(chunk){
                 console.log('success : ' + chunk.toString());
                 callback && callback({data:chunk.toString(),pythonpath})
