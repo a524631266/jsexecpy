@@ -1,4 +1,4 @@
 let pyexec = require("../index");
 // pyexec.runpath("./test/test.py")
 
-pyexec.runpytext("import osss;print('you are my love');a = 2;a+=1;print(a)")
+pyexec.runpytext("import os;import time;time.sleep(1);print('you are my love');time.sleep(5);a = 2;a+=1;print(a)")

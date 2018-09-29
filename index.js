@@ -1,20 +1,35 @@
-let {exec} = require("child_process");
+let {exec,spawn} = require("child_process");
 let crypto = require("crypto");
 let os = require("os");
 let path = require("path");
 let fs = require("fs")
 
-
-let _execpython = function(pythonpath){
+let _execpython = function(pythonpath,callback){
     return new Promise((resolve,reject)=>{
         try {
-            exec(`python ${pythonpath}`,function(err,data){
-                if(err){
-                    reject({data:`执行${pythonpath} 错误:${err}`,pythonpath})
-                }else{
-                    resolve({data,pythonpath})
-                }
+            let spawnObj = spawn("python",[pythonpath],{encoding:"utf-8",stdio: 'inherit' });
+            spawnObj.stdout.on("data",function(chunk){
+                console.log('success : ' + chunk.toString());
+                callback && callback({data:chunk.toString(),pythonpath})
             })
+            spawnObj.stderr.on("data",function(chunk){
+                console.log('err : ' + chunk.toString());
+                reject({data:`执行${pythonpath} 错误:${err}`,pythonpath})
+                // callback && callback({data:chunk.toString(),pythonpath})
+            })
+            spawnObj.on('close', function(code) {
+                console.log('close code : ' + code);
+            })
+            // var makeProcess = exec(`python ${pythonpath}`,function(err,data){
+            //     if(err){
+            //         reject({data:`执行${pythonpath} 错误:${err}`,pythonpath})
+                    
+            //     }else{
+            //         resolve({data,pythonpath})
+            //         callback && callback({data,pythonpath})
+            //     }
+            // })
+
         } catch (error) {
             reject({data:`执行${pythonpath} 异常:${error}`,pythonpath})
         }
@@ -23,13 +38,14 @@ let _execpython = function(pythonpath){
 }
 
 
-function runpath(path){
-    _execpython(path).then(
+function runpath(path,callback){
+    _execpython(path,callback).then(
         data=>{
             console.log('执行py文件成功 :', data);
         },
         err=>{
             console.log('执行py路劲错误 :', err);
+            callback(err)
         }
     )
 }
