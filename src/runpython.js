@@ -9,7 +9,7 @@ let _execpython = function(pythonpath,callback){
             let spawnObj = spawn("python",[pythonpath],{encoding:"utf-8"});
             spawnObj.stdout.on("data",function(chunk){
                 console.log('success : ' + chunk.toString());
-                callback && callback({data:chunk,pythonpath})
+                callback && callback({data:chunk.toString(),pythonpath})
             })
             spawnObj.stderr.on("data",function(chunk){
                 console.log('err : ' + chunk.toString());
