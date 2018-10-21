@@ -1,9 +1,17 @@
-// let pyexec = require("../index");
-// // pyexec.runpath("./test/test.py")
+let {run_ipynb_code,runpath,run,runpath_with_params} = require("../index")
 
-// pyexec.runpytext("import os;import time;time.sleep(1);print('you are my love');time.sleep(5);a = 2;a+=1;print(a)")
-let {run_ipynb_code} = require("../index")
+// run_ipynb_code("../test.ipynb",function(data){
+//     console.log(data);
+// })
+let path = require("path")
 
-run_ipynb_code("I:/家和工作记录/jupytertest/test.ipynb",function(data){
+// runpath_with_params(path.resolve(__dirname,"./test.py"),"aa bb cc",function(data){
+//     console.log(data);
+// })
+
+let aa = "as"
+let dd = "cd"
+let c = "dd"//aa,dd,c,
+runpath_with_params(path.resolve(__dirname,"./test.py"),["a","bb","--a=80s","-a=90"],function(data){
     console.log(data);
 })

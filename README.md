@@ -32,7 +32,7 @@
     > jsexecpy.runpath("/home/.../test.py",callback)
     ```
 
-- 3.执行.ipynb文件
+- 3. 执行.ipynb文件
     ```nodejs
     > let jsexecpy = require("jsexecpy")
     > jsexecpy.run_ipynb_code("/home/.../test.ipynb",callback)
@@ -47,4 +47,19 @@
      }
      > jsexecpy.runpath("path.py",callback)
      > jsexecpy.run_ipynb_code("path.ipynb",callback)
+    ```
+- 5. python文件传参更新
+    python some.py a b c -p=a --list=bb
+    传参有两种方式
+    a) string type
+
+    ```nodejs
+     > let params = "a b c -p=a --list=bb"
+     > jsexecpy.runpath_with_params("some.py",params,callback)
+    ```
+    b) array type
+
+    ```nodejs
+     > let paramslist = ["a","b" ,"c", "-p=a", "--list=bb"]
+     > jsexecpy.runpath_with_params("some.py",paramslist,callback)
     ```

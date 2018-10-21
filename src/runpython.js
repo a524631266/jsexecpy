@@ -3,10 +3,18 @@ let crypto = require("crypto");
 let os = require("os");
 let path = require("path");
 let fs = require("fs")
-let _execpython = function(pythonpath,callback){
+let _execpython = function(pythonpath,callback,paramslist){
     return new Promise((resolve,reject)=>{
         try {
-            let spawnObj = spawn("python",[pythonpath],{encoding:"utf-8"});
+            let spwanparmas = [pythonpath]
+            if(paramslist){
+                paramslist.forEach(
+                    (value,index)=>{
+                        value!="" && (spwanparmas.push(value))
+                    }
+                )
+            }
+            let spawnObj = spawn("python",spwanparmas,{encoding:"utf-8"});
             spawnObj.stdout.on("data",function(chunk){
                 console.log('success : ' + chunk.toString());
                 callback && callback({data:chunk.toString(),pythonpath})
@@ -48,6 +56,44 @@ function runpath(path,callback){
         }
     )
 }
+function runpath_with_params(path,params,callback){
+    //"[object Array]"
+    let paramslist = []
+    if(Object.prototype.toString.call(params) === "[object String]"){
+        paramslist = params.split(" ")
+    }
+    if(Object.prototype.toString.call(params) === "[object Array]"){
+        paramslist=params
+    }
+    // if(Object.prototype.toString.call(params) === "[object Object]"){
+    //     for(let key in params){
+    //         if(key[0]!=="-"){
+    //             // console.log('key, :', key,params[key]);
+    //             if(key === params[key]){
+    //                 paramslist.push(key)
+    //             }else{
+    //                 console.log('你必须在参数前添加-或者--you should use -/-- before params:');
+    //                 callback('你必须在参数前添加-或者--you should use -/-- before params:')
+    //                 return
+    //             }
+                
+    //         }else{
+    //             paramslist.push(key)
+    //             paramslist.push(params[key])
+    //         }
+    //     }
+    // }
+    _execpython(path,callback,paramslist).then(
+        data=>{
+            console.log('执行py文件成功 :', data);
+        },
+        err=>{
+            console.log('执行py路劲错误 :', err);
+            callback(err)
+        }
+    )
+}
+
 /**
  * 把文本输入到　路劲
  * @param {*} pythontext 类python文件
@@ -115,5 +161,6 @@ let runpytext = (pythontext,dosomething,hasdeletething)=>{
 
 module.exports = {
     runpath,
-    runpytext
+    runpytext,
+    runpath_with_params
 }

@@ -1,10 +1,6 @@
 {
   "name": "jsexecpy",
-<<<<<<< HEAD
-  "version": "1.0.4",
-=======
   "version": "1.0.6",
->>>>>>> 038bdcb94981c1c0c1d0df261dfec298d7bf94e6
   "description": "this package is using for excuting python similer text in nodejs and return the result",
   "main": "index.js",
   "scripts": {
